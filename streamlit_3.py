@@ -14,6 +14,8 @@ import re
 #Text Preprocessing 
 import contractions
 import nltk
+nltk.download('all')
+
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
