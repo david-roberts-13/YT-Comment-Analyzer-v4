@@ -14,7 +14,7 @@ import re
 #Text Preprocessing 
 import contractions
 import nltk
-nltk.download('all')
+nltk.download('punkt')
 
 
 from nltk.tokenize.toktok import ToktokTokenizer
