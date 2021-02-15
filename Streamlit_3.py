@@ -17,7 +17,7 @@ import nltk
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords, wordnet
+from nltk.txt import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
 
 #Sentiment analysis
