@@ -386,6 +386,7 @@ df['pos'] = [analyzer.polarity_scores(x)['pos'] for x in df['final_text']]
 
 #-----------------------------------------------------------------------------------------------------------------------
 x = st.slider('x')
+st.text('X is the number of comments that will show')
 with features:
 
 	st.header('Proccessed Comments')
