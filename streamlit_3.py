@@ -40,9 +40,9 @@ features = st.beta_container()
 model_training = st.beta_container()
 
 with header:
-	st.title('Welcome to my awesome data scient project')
-	st.header("Youtube Scraper")
-	st.text('in this project i wanted to make a tool that would aggregate youtube comment sentiment')
+	st.title('Welcome to my awesome data science project!!')
+	st.header("Youtube Comment Sentiment Analysis")
+	st.text('This tool allows you to automatically analyse the opinions of your comment section!')
 	url_input = st.text_input('Enter Youtube Video Link')
 	client_secret={"installed":{"client_id":"552781266117-lmvt9f6566pa9h6f4h75v29e19h311va.apps.googleusercontent.com","project_id":"youtube-comment-project-v3","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"jSz-cLr3CC0av9NUAXKpptAt","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}
 	SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
@@ -389,7 +389,7 @@ x = st.slider('x')
 with features:
 
 	st.header('Proccessed Comments')
-	st.text('As you from left to right in this data frame you will see each step taken in preprocessing')
+	st.text('Use the slider to customize how many comments you want to see in the dataframe!')
 	st.dataframe(df.head(x))
 
 
@@ -414,5 +414,6 @@ fig.update_traces(marker=dict(size=12,
                   selector=dict(mode='markers'))
 
 st.header('Initial Visualization')
+st.text('Try hovering your mouse over the dots to read the original comment')
 
 st.plotly_chart(fig)
