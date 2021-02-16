@@ -19,7 +19,7 @@ nltk.download('punkt')
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
-from nltk.corpus import wordnet #stopwords
+#from nltk.corpus import wordnet #stopwords
 from nltk.stem import WordNetLemmatizer
 
 #Sentiment analysis
@@ -329,22 +329,22 @@ df['text_tokenized'] = df['lower'].apply(word_tokenize)
 df['pos_tags'] = df['text_tokenized'].apply(nltk.tag.pos_tag)
 
 
-def get_wordnet_pos(tag):
-    if tag.startswith('J'):
-        return wordnet.ADJ
-    elif tag.startswith('V'):
-        return wordnet.VERB
-    elif tag.startswith('N'):
-        return wordnet.NOUN
-    elif tag.startswith('R'):
-        return wordnet.ADV
-    else:
-        return wordnet.NOUN
-df['wordnet_pos'] = df['pos_tags'].apply(lambda x: [(word, get_wordnet_pos(pos_tag)) for (word, pos_tag) in x])
+#def get_wordnet_pos(tag):
+    #if tag.startswith('J'):
+        #return wordnet.ADJ
+    #elif tag.startswith('V'):
+        #return wordnet.VERB
+    #elif tag.startswith('N'):
+        #return wordnet.NOUN
+    #elif tag.startswith('R'):
+        #return wordnet.ADV
+    #else:
+        #return wordnet.NOUN
+#df['wordnet_pos'] = df['pos_tags'].apply(lambda x: [(word, get_wordnet_pos(pos_tag)) for (word, pos_tag) in x])
 
 
 wnl = WordNetLemmatizer()
-df['lemmatized'] = df['wordnet_pos'].apply(lambda x: [wnl.lemmatize(word, tag) for word, tag in x])
+df['lemmatized'] = df['pos_tags'].apply(lambda x: [wnl.lemmatize(word, tag) for word, tag in x])
 
 
 
