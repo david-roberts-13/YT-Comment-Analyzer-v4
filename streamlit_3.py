@@ -385,12 +385,12 @@ df['pos'] = [analyzer.polarity_scores(x)['pos'] for x in df['final_text']]
 
 
 #-----------------------------------------------------------------------------------------------------------------------
-
+x = st.slider('x')
 with features:
 
 	st.header('Proccessed Comments')
 	st.text('As you from left to right in this data frame you will see each step taken in preprocessing')
-	st.dataframe(df.tail(7))
+	st.dataframe(df.head(x))
 
 
 df.tail(7)
