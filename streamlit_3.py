@@ -19,7 +19,7 @@ nltk.download('punkt')
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
-from nltk.corpus import wordnet #stopwords
+from nltk.corpus import wordnet, stopwords
 from nltk.stem import WordNetLemmatizer
 
 #Sentiment analysis
@@ -315,8 +315,8 @@ df['lower']=df['text_no-emoji'].str.lower() # lower must come before contraction
 df['text_tokenized'] = df['lower'].apply(word_tokenize)
 
 #removing stop words like 'you, he, she, in, a, has'
-#stop_words = set(stopwords.words('english'))
-#df['stop_words_removed'] = df['text_tokenized'].apply(lambda x: [word for word in x if word not in stop_words])
+stop_words = set(stopwords.words('english'))
+df['stop_words_removed'] = df['text_tokenized'].apply(lambda x: [word for word in x if word not in stop_words])
 
 #The idea of stemming is to reduce different forms of word usage into its root word. For example, “drive”, 
 #“drove”, “driving”, “driven”, “driver” are derivatives of the word “drive” and very often researchers want 
@@ -326,7 +326,7 @@ df['text_tokenized'] = df['lower'].apply(word_tokenize)
 #find the morphological root of “pie”.
 
 #Lemmatization
-df['pos_tags'] = df['text_tokenized'].apply(nltk.tag.pos_tag)
+df['pos_tags'] = df['stop_words_removed'].apply(nltk.tag.pos_tag)
 
 
 def get_wordnet_pos(tag):
