@@ -83,7 +83,7 @@ def youtube_authenticate():
 youtube = youtube_authenticate()
 
 #-----------------------------------------------------------------------------------------------------------------------
-def get_channel_id_by_url(youtube, url):
+def Input_URL(youtube, url):
     """
     Returns channel ID of a given `id` and `method`
     - `method` (str): can be 'c', 'channel', 'user'
@@ -206,7 +206,7 @@ if "watch" in url:
     }
 else:
     # should be a channel
-    channel_id = get_channel_id_by_url(url)
+    channel_id = Input_URL(url)
     params = {
         'allThreadsRelatedToChannelId': channel_id, 
         'maxResults': 100,
