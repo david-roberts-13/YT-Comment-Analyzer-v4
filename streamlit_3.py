@@ -15,7 +15,7 @@ import re
 import contractions
 import nltk
 nltk.download('punkt')
-
+nltk.download('stopwords')
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
