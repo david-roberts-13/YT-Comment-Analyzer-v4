@@ -12,7 +12,7 @@ import numpy as np
 import re
 
 #Text Preprocessing 
-import contractions
+#import contractions
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -291,11 +291,11 @@ df["less_spaces"]=df['emoticons_replacment'].apply(lambda x: re.sub(' +', ' ', x
 
 #https://towardsdatascience.com/preprocessing-text-data-using-python-576206753c28 
 
-df['text_expan_contractions'] = df['less_spaces'].apply(lambda x: [contractions.fix(word) for word in x.split()])
-df['text_expan_contractions'] = [' '.join(map(str, l)) for l in df['text_expan_contractions']]
+#df['text_expan_contractions'] = df['less_spaces'].apply(lambda x: [contractions.fix(word) for word in x.split()])
+#df['text_expan_contractions'] = [' '.join(map(str, l)) for l in df['text_expan_contractions']]
 
 #removes non alphanumeric/ whitespace characters from strings 
-df['text_misc_char_removed'] = df['text_expan_contractions'].str.replace('&#39;','')  # just a lil something to replace the weird apostroph thing 
+df['text_misc_char_removed'] = df['less_spaces'].str.replace('&#39;','')  # just a lil something to replace the weird apostroph thing 
 df['text_misc_char_removed'] = df['text_misc_char_removed'].map(lambda x: re.sub("[^0-9a-zA-Z\s]+",'', x)) #this includes puncutation which shoes little value in analysis 
 
 #removes emojis 
