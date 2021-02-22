@@ -14,6 +14,11 @@ import re
 #Text Preprocessing 
 #import contractions
 import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+nltk.download('vader_lexicon')
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
