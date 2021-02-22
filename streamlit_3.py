@@ -12,18 +12,12 @@ import numpy as np
 import re
 
 #Text Preprocessing 
-
 #import contractions
 import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('wordnet')
-nltk.download('vader_lexicon')
 
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.tokenize import word_tokenize
-from nltk.corpus import wordnet, stopwords
+from nltk.corpus import wordnet , stopwords
 from nltk.stem import WordNetLemmatizer
 
 #Sentiment analysis
@@ -44,7 +38,7 @@ features = st.beta_container()
 model_training = st.beta_container()
 
 with header:
-	st.title('Welcome to my awesome data science project!!')
+	st.title(' Opinion Mining for the Burgeoning Creator ')
 	st.header("Youtube Comment Sentiment Analysis")
 	st.text('This tool allows you to automatically analyse the opinions of your comment section!')
 	url_input = st.text_input('Enter Youtube Video Link')
@@ -84,7 +78,7 @@ def youtube_authenticate():
 youtube = youtube_authenticate()
 
 #-----------------------------------------------------------------------------------------------------------------------
-def Input_URL(youtube, url):
+def get_channel_id_by_url(youtube, url):
     """
     Returns channel ID of a given `id` and `method`
     - `method` (str): can be 'c', 'channel', 'user'
@@ -207,7 +201,7 @@ if "watch" in url:
     }
 else:
     # should be a channel
-    channel_id = Input_URL(url)
+    channel_id = get_channel_id_by_url(url)
     params = {
         'allThreadsRelatedToChannelId': channel_id, 
         'maxResults': 100,
@@ -330,7 +324,7 @@ df['stop_words_removed'] = df['text_tokenized'].apply(lambda x: [word for word i
 #find the morphological root of “pie”.
 
 #Lemmatization
-df['pos_tags'] = df['stop_words_removed'].apply(nltk.tag.pos_tag)
+df['pos_tags'] = df['text_tokenized'].apply(nltk.tag.pos_tag)
 
 
 def get_wordnet_pos(tag):
@@ -389,17 +383,27 @@ df['pos'] = [analyzer.polarity_scores(x)['pos'] for x in df['final_text']]
 
 
 #-----------------------------------------------------------------------------------------------------------------------
-x = st.slider('x')
-st.text('X is the number of comments that will show')
+
 with features:
 
-	st.header('Proccessed Comments')
+	st.header('Proccessed Comments (All Comments)')
 	st.text('Use the slider to customize how many comments you want to see in the dataframe!')
+	x = st.slider('x')
+	st.text('X is the number of comments that will show')
 	st.dataframe(df.head(x))
+#-----------------------------------------------------------------------------------------------------------------------
 
+with features:
 
-df.tail(7)
-
+	st.header('Proccessed Comments (Only Liked Comments)')
+	#st.text('Use the slider to customize how many Liked comments you want to see in the dataframe!')
+	liked_comments=df['Like_Count']>0
+	df_like=df[liked_comments]
+	Y= st.slider('Y')
+	st.text('Y is the number of Liked comments that will show')
+	st.dataframe(df_like.head(Y))
+	
+#-----------------------------------------------------------------------------------------------------------------------
 
 fig = go.Figure()
 # Use x instead of y argument for horizontal plot
@@ -411,14 +415,60 @@ fig = px.box(df, x="compound", points="all",hover_data=['Comment_original'])
 
 fig.update_layout(
     height=300,
-    title_text='Youtube Comment Sentiment analysis',showlegend=False)
+    title_text='All Comments',showlegend=False)
 
 fig.update_traces(marker=dict(size=12,
                               line=dict(width=2,
                                         color='Sentiment_bin')),
                   selector=dict(mode='markers'))
 
-st.header('Initial Visualization')
+st.header('Opinion Visualizations ')
 st.text('Try hovering your mouse over the dots to read the original comment')
 
+
 st.plotly_chart(fig)
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+
+fig1 = go.Figure()
+# Use x instead of y argument for horizontal plot
+
+
+fig1.add_trace(go.Box(x=df_like['compound']))
+fig1 = px.box(df_like, x="compound", points="all",hover_data=['Comment_original'])
+
+
+fig1.update_layout(
+    height=300,
+    title_text='Liked Comments',showlegend=False)
+
+fig1.update_traces(marker=dict(size=12,
+                              line=dict(width=2,color='indianred')),selector=dict(mode='markers'))
+
+#st.text('Try hovering your mouse over the dots to read the original comment')
+
+
+st.plotly_chart(fig1)
+
+#-----------------------------------------------------------------------------------------------------------------------
+#fig2 = go.Figure()
+
+#fig2.add_trace(go.Box(x=df['compound'], name='All Comments',
+                #marker_color = 'indianred',boxpoints='all',notched=True))
+#fig2.add_trace(go.Box(x=df_like['compound'], name = 'Liked Comments',
+                #marker_color = 'lightseagreen',boxpoints='all',notched=True))
+
+
+#st.plotly_chart(fig2)
+
+st.text('A boxplot is a way to show a five number summary in a chart.  The main part of the')
+st.text('chart (the “box”) shows where the middle portion of the data is: the interquartile range.')
+st.text('At the ends of the box, you” find the first quartile (the 25% mark) and the third ')
+st.text('quartile (the 75% mark). The far left of the chart (at the end of the left “whisker”) ')
+st.text(' is the minimum (the smallest number in the set) and the far right is the maximum ')
+st.text('(the largest number in the set). Finally, the median is represented by a vertical ')
+st.text('bar in the center of the box.')
+
