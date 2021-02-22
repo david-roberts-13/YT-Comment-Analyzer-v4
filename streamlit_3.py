@@ -404,6 +404,7 @@ with features:
 	#st.text('Use the slider to customize how many Liked comments you want to see in the dataframe!')
 	liked_comments=df['Like_Count']>0
 	df_like=df[liked_comments]
+	df_like=df_like.sort_values(by=['Like_Count'])
 	Y= st.slider('Y')
 	st.text('Y is the number of Liked comments that will show')
 	st.dataframe(df_like.head(Y))
