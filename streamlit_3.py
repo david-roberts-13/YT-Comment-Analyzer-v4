@@ -43,7 +43,7 @@ features = st.beta_container()
 model_training = st.beta_container()
 
 with header:
-	st.title(' Opinion Mining for the Burgeoning Creator ')
+	st.title(' Youtube Opinion Mining for the Burgeoning Creator ')
 	st.header("Youtube Comment Sentiment Analysis")
 	st.text('This tool allows you to automatically analyse the opinions of your comment section!')
 	url_input = st.text_input('Enter Youtube Video Link')
