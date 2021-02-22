@@ -477,6 +477,6 @@ st.text('quartile (the 75% mark). The far left of the chart (at the end of the l
 st.text(' is the minimum (the smallest number in the set) and the far right is the maximum ')
 st.text('(the largest number in the set). Finally, the median is represented by a vertical ')
 st.text('bar in the center of the box.')
-
+st.text('-')
 st.text('To contact the creator of this site email: ytubeminer@gmail.com')
 
